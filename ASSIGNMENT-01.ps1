@@ -26,7 +26,7 @@ class LogEntry {
         [String]$Status,
         [switch]$Quiet
     ){
-        if( $this.$Close ) {
+        if( $Close ) {
             $this.Active = $false
         }
         $this.Duration = [DateTime]::Now - $this.Timestamp
