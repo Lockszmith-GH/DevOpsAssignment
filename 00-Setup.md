@@ -1,16 +1,18 @@
 # Starting from scratch on Windows 11
 
-1. Signed up for Azure Free account at <https://portal.azure.com>
-2. Installed [Az PowerShell Module](https://github.com/Azure/azure-powershell/releases/tag/v10.1.0-July2023) and connected the Azure Account for the first time.
+1. Signed up for Azure Free account at <https://portal.azure.com>  
 
-    ```PowerShell
-    Install-Module -Name Az -Repository PSGallery -Force
-    Connect-AzAccount
-    ```
+   ~~2. Installed Az PowerShell Module ...~~  
+   ~~3. Install AzureAD PowerShell Module ...~~
+   ~~3. Install Microsoft Graph Module ...~~
 
-3. Install AzureAD PowerShell Module and Connect to the default Azure AD tenant for the first time
+2. Working with mcr.microsoft.com/microsoftgraph/powershell docker
+   container.  
+   Chose this path after failing to setup my personal local
+   Windows 11 machine with the above libraries, realizing this should
+   have been my first choice.
 
-    ```PowerShell
-    Install-Module -Name AzureAD -Repository PSGallery -Force -AllowClobber
-    Connect-AzureAD
-    ```
+3. Tested connection from within the docker conatiner:
+   ```console
+   .../varonis $
+   ```
