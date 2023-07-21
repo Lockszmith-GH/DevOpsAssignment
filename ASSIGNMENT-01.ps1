@@ -165,7 +165,7 @@ $Automation = @(
         Operation="Get-MgOrganization"
         Description="Testing connection to Microsoft.Graph"
         Action={param([LogEntry]$log,$Quiet)
-            $org = Get-MgOrganization
+            $org = Get-MgOrganization -ErrorAction Stop
             $script:Domain = $org.VerifiedDomains |
                 Where-Object IsDefault |
                 Select-Object -ExpandProperty Name
