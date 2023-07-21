@@ -150,7 +150,6 @@ function Invoke-LoggedAction{
 # If the user doesn't exist, it will create the user.
 # If the user isn't a member of the above mentioned group, add it to it.
 # Display a report.
-$UserName="Test User 01"
 $script:Domain="unknown"
 
 $Automation = @(
@@ -200,9 +199,9 @@ $Automation = @(
     }
 )
 
-try {
+function Main{
     foreach( $local:Action in $Automation ) {
-        Invoke-LoggedAction @Action -Quiet
+        Invoke-LoggedAction @Action -Quiet -ErrorAction Stop
     }
     $Group = Get-MgGroup -Filter "DisplayName eq 'Varonis Assignment Group'"
 
@@ -270,6 +269,10 @@ try {
             # In case of error, continue to the next user.
         }
     }    
+}
+
+try {
+    Main     
 } catch {
     # We are relying on the LogTrail to show us any problems.
 }
