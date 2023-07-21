@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  pwsh-azure:
+    image: mcr.microsoft.com/azure-powershell
+    restart: "no"
+    entrypoint: "pwsh"
+    working_dir: /data
+    volumes:
+    - ./data:/data
+    - ./src:/data/src
+    - ./data/.dotnet:/root/.dotnet
+
+  pwsh-msgraph-sdk:
+    image: mcr.microsoft.com/microsoftgraph/powershell
+    restart: "no"
+    entrypoint: "pwsh"
+    working_dir: /data
+    volumes:
+    - ./data:/data
+    - ./src:/data/src
+    - ./data/.dotnet:/root/.dotnet
+
