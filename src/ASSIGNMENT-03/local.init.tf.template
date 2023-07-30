@@ -1,0 +1,8 @@
+# Copy this file into local.init.tf (which is in .gitignore) as fill
+# in the secret's value
+
+locals {
+  # Secret for the SzTerraform service-prinicipal:
+  # Azure Active Directory -> App registration -> SzTerraform -> Certificates & secrets
+  secret = "<Secret>"
+}
