@@ -1,0 +1,132 @@
+{
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/VARONIS-ASSIGNMENT-03/providers/Microsoft.Compute/virtualMachines/TMPL-USE-VM1": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/VARONIS-ASSIGNMENT-03/providers/Microsoft.Compute/virtualMachines/TMPL-USE-VM1",
+		"resource_type": "azurerm_linux_virtual_machine",
+		"resource_name": "res-0"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03",
+		"resource_type": "azurerm_resource_group",
+		"resource_name": "res-1"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Compute/virtualMachines/tmpl-eun-vm01": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Compute/virtualMachines/tmpl-eun-vm01",
+		"resource_type": "azurerm_linux_virtual_machine",
+		"resource_name": "res-2"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-eun-lb": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-eun-lb",
+		"resource_type": "azurerm_lb",
+		"resource_name": "res-3"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-eun-lb/backendAddressPools/tmpl-eun-be-pool": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-eun-lb/backendAddressPools/tmpl-eun-be-pool",
+		"resource_type": "azurerm_lb_backend_address_pool",
+		"resource_name": "res-4"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-use-lb": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-use-lb",
+		"resource_type": "azurerm_lb",
+		"resource_name": "res-5"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-use-lb/backendAddressPools/tmpl-use-be-pool": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-use-lb/backendAddressPools/tmpl-use-be-pool",
+		"resource_type": "azurerm_lb_backend_address_pool",
+		"resource_name": "res-6"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-eun-vm01457": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-eun-vm01457",
+		"resource_type": "azurerm_network_interface",
+		"resource_name": "res-7"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-eun-vm01457/ipConfigurations/ipconfig1/loadBalancerBackendAddressPools/L3N1YnNjcmlwdGlvbnMvY2VkNjE5OTEtMDljZi00ZTE5LWE3NzMtZmE0NTQ2MDllMWVkL3Jlc291cmNlR3JvdXBzL3Zhcm9uaXMtYXNzaWdubWVudC0wMy9wcm92aWRlcnMvTWljcm9zb2Z0Lk5ldHdvcmsvbG9hZEJhbGFuY2Vycy90bXBsLWV1bi1sYi9iYWNrZW5kQWRkcmVzc1Bvb2xzL3RtcGwtZXVuLWJlLXBvb2w=": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-eun-vm01457/ipConfigurations/ipconfig1|/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-eun-lb/backendAddressPools/tmpl-eun-be-pool",
+		"resource_type": "azurerm_network_interface_backend_address_pool_association",
+		"resource_name": "res-8"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-eun-vm01457/networkSecurityGroups/L3N1YnNjcmlwdGlvbnMvY2VkNjE5OTEtMDljZi00ZTE5LWE3NzMtZmE0NTQ2MDllMWVkL3Jlc291cmNlR3JvdXBzL3Zhcm9uaXMtYXNzaWdubWVudC0wMy9wcm92aWRlcnMvTWljcm9zb2Z0Lk5ldHdvcmsvbmV0d29ya1NlY3VyaXR5R3JvdXBzL3RtcGwtZXVuLXZtMDEtbnNn": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-eun-vm01457|/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-eun-vm01-nsg",
+		"resource_type": "azurerm_network_interface_security_group_association",
+		"resource_name": "res-9"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-use-vm1329": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-use-vm1329",
+		"resource_type": "azurerm_network_interface",
+		"resource_name": "res-10"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-use-vm1329/ipConfigurations/ipconfig1/loadBalancerBackendAddressPools/L3N1YnNjcmlwdGlvbnMvY2VkNjE5OTEtMDljZi00ZTE5LWE3NzMtZmE0NTQ2MDllMWVkL3Jlc291cmNlR3JvdXBzL3Zhcm9uaXMtYXNzaWdubWVudC0wMy9wcm92aWRlcnMvTWljcm9zb2Z0Lk5ldHdvcmsvbG9hZEJhbGFuY2Vycy90bXBsLXVzZS1sYi9iYWNrZW5kQWRkcmVzc1Bvb2xzL3RtcGwtdXNlLWJlLXBvb2w=": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-use-vm1329/ipConfigurations/ipconfig1|/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/loadBalancers/tmpl-use-lb/backendAddressPools/tmpl-use-be-pool",
+		"resource_type": "azurerm_network_interface_backend_address_pool_association",
+		"resource_name": "res-11"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-use-vm1329/networkSecurityGroups/L3N1YnNjcmlwdGlvbnMvY2VkNjE5OTEtMDljZi00ZTE5LWE3NzMtZmE0NTQ2MDllMWVkL3Jlc291cmNlR3JvdXBzL3Zhcm9uaXMtYXNzaWdubWVudC0wMy9wcm92aWRlcnMvTWljcm9zb2Z0Lk5ldHdvcmsvbmV0d29ya1NlY3VyaXR5R3JvdXBzL3RtcGwtdXNlLXZtMS1uc2c=": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkInterfaces/tmpl-use-vm1329|/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-use-vm1-nsg",
+		"resource_type": "azurerm_network_interface_security_group_association",
+		"resource_name": "res-12"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-eun-vm01-nsg": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-eun-vm01-nsg",
+		"resource_type": "azurerm_network_security_group",
+		"resource_name": "res-13"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-eun-vm01-nsg/securityRules/SSH": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-eun-vm01-nsg/securityRules/SSH",
+		"resource_type": "azurerm_network_security_rule",
+		"resource_name": "res-14"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-use-vm1-nsg": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-use-vm1-nsg",
+		"resource_type": "azurerm_network_security_group",
+		"resource_name": "res-15"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-use-vm1-nsg/securityRules/SSH": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/networkSecurityGroups/tmpl-use-vm1-nsg/securityRules/SSH",
+		"resource_type": "azurerm_network_security_rule",
+		"resource_name": "res-16"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-eun-public-ip": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-eun-public-ip",
+		"resource_type": "azurerm_public_ip",
+		"resource_name": "res-17"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-eun-vm01-ip": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-eun-vm01-ip",
+		"resource_type": "azurerm_public_ip",
+		"resource_name": "res-18"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-use-public-ip": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-use-public-ip",
+		"resource_type": "azurerm_public_ip",
+		"resource_name": "res-19"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-use-vm1-ip": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/publicIPAddresses/tmpl-use-vm1-ip",
+		"resource_type": "azurerm_public_ip",
+		"resource_name": "res-20"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/trafficmanagerprofiles/tmpl-traffic-mgr": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/trafficManagerProfiles/tmpl-traffic-mgr",
+		"resource_type": "azurerm_traffic_manager_profile",
+		"resource_name": "res-21"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-eun-vm01-vnet": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-eun-vm01-vnet",
+		"resource_type": "azurerm_virtual_network",
+		"resource_name": "res-22"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-eun-vm01-vnet/subnets/default": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-eun-vm01-vnet/subnets/default",
+		"resource_type": "azurerm_subnet",
+		"resource_name": "res-23"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-use-vm1-vnet": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-use-vm1-vnet",
+		"resource_type": "azurerm_virtual_network",
+		"resource_name": "res-24"
+	},
+	"/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-use-vm1-vnet/subnets/default": {
+		"resource_id": "/subscriptions/ced61991-09cf-4e19-a773-fa454609e1ed/resourceGroups/varonis-assignment-03/providers/Microsoft.Network/virtualNetworks/tmpl-use-vm1-vnet/subnets/default",
+		"resource_type": "azurerm_subnet",
+		"resource_name": "res-25"
+	}
+}
