@@ -1,2 +1,5 @@
 local.init.tf
-.terraform
+.terraform*
+*.tfstate
+_logs
+_.tmp.*

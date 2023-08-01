@@ -11,4 +11,10 @@ The tool that seems to be a good fit, is the [aztexport](https://github.com/Azur
 utility, which exports an existing azure state into a collecton of
 terraform plan files.
 
-This helped me with understanding the particulars of the environment.
+This helped me with understanding the particulars of how azure
+objects/hirarchies/relationships work.
+
+<https://github.com/Azure/azure-cli/issues/11749#issuecomment-570975762>
+
+## Additons of my own
+
