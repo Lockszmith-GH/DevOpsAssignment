@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+eval "$(. _tf_aux_functions)"
+
+. tf0-plan --destroy "${@}"
+
+eval "$( _tf_exit_code )"

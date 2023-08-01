@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+eval "$(. _tf_aux_functions)"
+
+function _tf-init() {
+    tf-_pre-plan "${@}"
+
+    tf0 init "${@}"
+}
+
+_tf-init "${@}"
+unset _tf-init
+
+eval "$( _tf_exit_code )"

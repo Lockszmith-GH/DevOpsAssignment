@@ -1,0 +1,99 @@
+#!/usr/bin/env -S bash -c 'echo "Not a user script. source(aka .) only"'
+set -e
+
+#
+# Loads common environmetn for direnv enabled repos
+function has() {
+    type "$1" &>/dev/null
+}
+
+get_clean_path() {
+    # shellcheck disable=SC2016
+    sed 's/ *:\?$//g;s/`/``/g;s/:/`:`/g;s/\\`:`/\\:/g;' <<< "$1" | \
+        awk -v RS='`:`' -v ORS='`:`' '!arr[$0]++' | \
+        sed 's/`:`/:/g;s/:$//g'
+}
+
+function PATH_add() {
+    for new_path in "${@}"; do
+        PATH="${new_path}:$PATH"
+    done
+    
+    PATH=$( get_clean_path "$PATH" )
+}
+
+export LESS='--quit-if-one-screen --ignore-case --line-numbers --quiet --raw-control-chars --hilite-unread --no-init --quit-at-eof '
+
+ENV_SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+PATH_add "$ENV_SCRIPT_DIR"
+
+export PATH
+
+export TF_LOG='info' # Options are: off, error, warn, info, debug, trace
+export TF_LOG_PATH='_logs/terraform'
+
+# Terraform deployment plan name
+SZ_TF_DIRNAME="$(basename "$PWD")"
+LOG_DIR="$SZ_TF_DIRNAME/_tf/_logs" # save for manipulation 
+
+if [[ "$SZ_TF_DIRNAME" == _tf ]]; then
+    SZ_TF_DIRNAME="$(basename "${PWD%/*}")"
+fi
+
+# Determine correct log location
+LOG_DIR="$(echo "$LOG_DIR" | sed -Ee 's|(^_tf[^/]*/)_tf/|\1|; s|^[^/]*/||')"
+[[ -d "${LOG_DIR}" ]] || mkdir "${LOG_DIR}" 2>/dev/null || true
+
+export SZ_TF_DIRNAME SZ_TF_NAME="$SZ_TF_DIRNAME"
+
+TFVARS_RESET_OR_BLANK=RESET
+
+function set_tf_vars() {
+    if [[ "$1" == "RESET" ]]; then
+        unset TF_VAR_PLAN_PATH TF_VAR_OUT TF_VAR_FILE_CLI TF_CLI_ARGS
+        unset TF_CLI_ARGS_init TF_CLI_ARGS_validate TF_CLI_ARGS_apply
+        unset TF_CLI_ARGS_plan TF_CLI_ARGS_refresh TF_CLI_ARGS_destroy
+    else
+        :
+    fi
+    TF_VAR_PLAN_PATH="${TF_VAR_PLAN_PATH:-_.tmp.${SZ_TF_NAME}.tfplan}"
+    TF_VAR_OUT="${TF_VAR_OUT:--out ${TF_VAR_PLAN_PATH}}"
+    # TF_VAR_FILE_CLI="-var-file="
+    # TF_VAR_FILE_CLI="${TF_VAR_FILE_CLI}"
+
+    # TF_CLI_ARGS=''
+    # TF_CLI_ARGS_init=''
+    # TF_CLI_ARGS_validate=''
+    TF_CLI_ARGS_apply="${TF_CLI_ARGS_apply:-${TF_VAR_PLAN_PATH}}"
+    TF_CLI_ARGS_plan="${TF_CLI_ARGS_plan:-${TF_VAR_OUT} ${TF_VAR_FILE_CLI}}"
+    TF_CLI_ARGS_refresh="${TF_CLI_ARGS_refresh:-${TF_VAR_FILE_CLI}}"
+    # TF_CLI_ARGS_destroy=''
+
+    export TF_IN_AUTOMATION="${TF_IN_AUTOMATION:-1}"
+
+    # console
+    # fmt
+    # force-unlock
+    # get
+    # graph
+    # import
+    # login
+    # logout
+    # output
+    # providers
+    # refresh
+    # show
+    # state
+    # taint
+    # test
+    # untaint
+    # version
+    # workspace 
+    export TF_VAR_PLAN_PATH TF_VAR_OUT TF_VAR_FILE_CLI TF_CLI_ARGS
+    export TF_CLI_ARGS_init TF_CLI_ARGS_validate TF_CLI_ARGS_apply
+    export TF_CLI_ARGS_plan TF_CLI_ARGS_refresh TF_CLI_ARGS_destroy
+    export SZ_TF_NETWORK_NAME
+}
+set_tf_vars "${TFVARS_RESET_OR_BLANK}"
+
+set +e

@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+resources=$()
+
+# Loop over resources and output name and ID pairs
+terraform state list | grep -Ev '^data\.' | while read -r r; do
+    printf 'tf import %s %s\n' \
+        "$r" \
+        "$( terraform state show "$r" \
+            | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" \
+            | grep -E "^\W*(id|self-link)\W*=" \
+            | head -1 \
+            | awk '{print $3}' \
+        )"
+done

@@ -1,0 +1,57 @@
+#!/usr/bin/env -S bash -c 'echo "Not a user script. source(aka .) only"'
+
+# the correct way to load this file is to source it like this:
+# eval "$(. _tf_aux_functions)"
+
+function _tfSetLogTS() {
+    TF_LOG_TS=$(date -d "today" +"%Y%m%d%H%M%S")
+    export TF_LOG_TS
+}
+
+function _tf_sedFullStop() {
+    sed --unbuffered '/^===FULLSTOP===$/q' | sed --unbuffered '/^===FULLSTOP===$/d'
+}
+
+function _tf_save_exitCode() {
+    echo TF_EXITCODE="$1" > /tmp/TF_EXITCODE
+}
+
+# shellcheck disable=SC2120
+function _tf_get_exit_code() {
+    unset TF_EXITCODE
+    if [[ -r /tmp/TF_EXITCODE ]]; then
+        source /tmp/TF_EXITCODE
+    fi
+    if [[ -z "$TF_EXITCODE" ]]; then
+        TF_EXITCODE=0
+    fi
+    if [[ "$1" != '-' ]]; then
+        echo "TF_EXITCODE=${TF_EXITCODE}"
+    fi
+    if [[ "$TF_EXITCODE" -ne 0 ]]; then
+        return "$TF_EXITCODE"
+    fi
+}
+
+function _tf_exit_code() {
+    # shellcheck disable=SC2016
+    _tf_get_exit_code || echo "return $TF_EXITCODE 2>/dev/null || exit $TF_EXITCODE"
+}
+
+[[ -e /tmp/TF_EXITCODE ]] && rm /tmp/TF_EXITCODE
+unset TF_EXITCODE
+
+function safe_load() {
+    if [[ -z "$(find -mindepth 1 -maxdepth 1 -type f -name "*.tf" -or -name "*.tf.sz_tmpl")" ]]; then
+        local TF_EXIST=''
+        [[ -d '_tf' ]] && TF_EXIST=" Did you forget to cd into _tf?"
+        >&2 printf "ERROR: No Terraform files found.%s\n" "$TF_EXIST"
+        return 2
+    fi
+}
+
+[[ 1 -ne "$_TF_AUX_FUNCTIONS_LOADED" ]] \
+    && printf "%s\n" \
+        "_TF_AUX_FUNCTIONS_LOADED=1" \
+        "source $(command -v _tf_aux_functions) || { X=$?; return $X 2>/dev/null || exit $X; }" \
+    || safe_load

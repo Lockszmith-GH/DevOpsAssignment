@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+function _switch-dbg-tf-on() {
+    local OFF_TF ON_TF
+    for OFF_TF in dbg.*.tf.off; do
+        ON_TF="_.${OFF_TF%\.off}"
+        [[ ! -r "$ON_TF" ]] && ln -s "$OFF_TF" "$ON_TF"
+        echo "$ON_TF switched on."
+    done
+}
+
+_switch-dbg-tf-on "${@}"
+unset _switch-dbg-tf-on

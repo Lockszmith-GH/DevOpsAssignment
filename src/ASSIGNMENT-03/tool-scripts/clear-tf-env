@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+function _clear-tf-env() {
+    local PATTERN="${1}"
+    local TOCLEAR=$(get-tf-env "${PATTERN}")
+    [[ -z "$TOCLEAR" ]] && {
+        echo "Could not find environment variables matching: $(echo "^TF_${PATTERN}")" 
+    } || {
+        unset $TOCLEAR
+        echo "Cleared the following vars: $(echo "$TOCLEAR" | xargs echo)"
+    }
+}
+
+_clear-tf-env "${@}"
+unset _clear-tf-env

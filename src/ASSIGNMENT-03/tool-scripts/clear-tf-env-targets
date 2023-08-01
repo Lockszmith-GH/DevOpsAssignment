@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+function _clear-tf-env-targets() {
+    clear-tf-env '[A-Z_]*TARGET$'
+}
+
+_clear-tf-env-targets "${@}"
+unset _clear-tf-env-targets

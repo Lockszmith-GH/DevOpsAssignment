@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+function _tfcontext() {
+    [[ -n $(find $PWD -name '*.tf') ]] || return -1
+    [[ -d _logs ]] || mkdir _logs
+    TF_VAR_FILE_NAME=${TF_VAR_FILE_CLI-:$(basename $PWD).tfvars}
+    [[ -r $TF_VAR_FILE_NAME ]] || unset TF_VAR_FILE_NAME
+    TF_VAR_FILE_CLI=${TF_VAR_FILE_CLI-:-var-file='$TF_VAR_FILE_NAME'}
+
+    basename $PWD
+}
+
+_tfcontext "${@}"
+unset _tfcontext

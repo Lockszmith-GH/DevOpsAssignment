@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+# shellcheck disable=SC1091
+eval "$(. _tf_aux_functions)"
+
+eval "$( _tf_exit_code )"
+_tf-plan() {
+    [[ -z "$SZ_DEBUG" ]] || echo "DEBUG: tf-plan ${*}"
+    local _TF_TARGET=""
+    # shellcheck disable=SC2153,SC2086 # TF_TARGET references an external env
+    [[ ${#TF_TARGET} -gt 0 ]] && _TF_TARGET="$(printf -- '--target=%s ' ${TF_TARGET})"
+    # shellcheck disable=SC2086 # word splitting is desired here
+    [[ "${*}" =~ "-destroy" ]] && [[ ${#TF_DESTROY_TARGET} -gt 0 ]] && _TF_TARGET="$(printf -- '--target=%s ' ${TF_DESTROY_TARGET})"
+
+    tf-_pre-plan "${@}"
+    # shellcheck disable=SC2086 # word splitting is desired here
+    tf plan ${_TF_TARGET} "${@}"
+}
+
+[[ -z "$TF_LOG_TS" ]] && _tfSetLogTS
+_tf-plan "${@}"
+unset _tf-plan
+
+LOG_NAME="_logs/${TF_LOG_TS}_plan"
+[[ "${*}" =~ "-destroy" ]] && LOG_NAME="${LOG_NAME}-destroy"
+LOG_NAME="${LOG_NAME}.log"
+
+[[ ! -r /tmp/TF_EXITCODE ]] \
+    && grep -E '^(.\[1m)?  # .* (forces|(must|will) be)' "${LOG_NAME}" \
+    | tee --append _logs/0_0_lastrun.log
+
+eval "$( _tf_exit_code )"

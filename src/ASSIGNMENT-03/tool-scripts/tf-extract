@@ -1,0 +1,38 @@
+#! /usr/bin/env bash
+# shellcheck disable=SC1091
+eval "$(. _tf_aux_functions)"
+
+final_render() {
+    if [ "$1" = "--clip" ]; then
+        jq -r '"- \(.name):|\(.id)"' \
+        | column -ts'|' | cut -c -${2:-${COLUMNS:-$(tput cols)}}
+    else
+        jq
+    fi
+}
+
+terraform show -json | jq \
+    | tee "_logs/${TF_LOG_TS}_state.json" \
+    | tee "_logs/0_state.json" \
+    | jq '
+        [[.values.root_module.resources,
+            (.values.root_module.child_modules // [] | .[].resources // [])
+        ] | map(.[] ) | .[]
+        | select( .mode != "data" )
+        | {
+            name: .address,
+            id: (
+                if( .type == "google_storage_bucket" ) then
+                    "\(.values.project)/\(.values.id)"
+                else
+                    .values.id
+                end
+            )
+        }]
+    ' \
+    | tee "_logs/${TF_LOG_TS}_state_ids.json" \
+    | tee "_logs/0_9_last_state_ids.json" \
+    | final_render "$@"
+
+eval "$( _tf_exit_code )"
+

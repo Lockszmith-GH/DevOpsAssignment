@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+eval "$(. _tf_aux_functions)"
+
+function _tf0() {
+    _tfSetLogTS
+    [ $# -eq 0 ] && return
+    tf "$@"
+}
+
+_tf0 "${@}"
+unset _tf0
+
+eval "$( _tf_exit_code )"

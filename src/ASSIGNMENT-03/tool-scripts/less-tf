@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+eval "$(. _tf_aux_functions)"
+
+function _less-tf() {
+    local _TF_LOG_FILE=${1-_logs/0_0_lastrun.log}
+    [[ "$1" == "-" ]] && _TF_LOG_FILE='_logs/0_0_lastrun.log'
+    [[ -z "$SZ_DEBUG" ]] || echo "lessts: ${@} | LESS_NO_WAIT = '${LESS_NO_WAIT}'"
+    [[ "$1" == "-" ]] && {
+        [[ -z "$SZ_DEBUG" ]] || echo "tailing..."
+        trap : INT;
+        tail -f $_TF_LOG_FILE | _tf_sedFullStop;
+    } \
+        || { [[ -z "${LESS_NO_WAIT}" ]] \
+                    && {
+                    [[ -z "$SZ_DEBUG" ]] || echo "Invoking less..."
+                    less \
+                            --no-init \
+                            --raw-control-chars \
+                            --line-numbers \
+                            --quiet \
+                            --hilite-unread \
+                            --incsearch \
+                            --ignore-case \
+                            --force \
+                            "${@:2}" -- \
+                            "$_TF_LOG_FILE"
+                        #\
+                            #'+G?([^\w\W][\[0-9m+])Plan:' \
+                            #'+3k'
+                }
+    }
+}
+
+_less-tf "${@}"
+unset _less-tf

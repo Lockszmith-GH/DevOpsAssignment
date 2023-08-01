@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+function _get-tf-env-plan() {
+    #set | grep '^TF\(_\(VAR_[a-z]\)\|\([A-Z_]*TARGET=\)\)' | grep '\b='
+
+    local PATTERN="${1:-.*}"
+    compgen -v | grep "^TF\(_\(VAR_[a-z]\)\|\([A-Z_]*TARGET=\)\)" \
+        | while read a; do
+            set \
+                | grep "^$a=" \
+                | grep "${PATTERN}" \
+                | grep '\b=' --color
+        done
+}
+
+_get-tf-env-plan "${@}"
+unset _get-tf-env-plan

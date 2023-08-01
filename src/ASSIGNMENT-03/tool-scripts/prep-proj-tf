@@ -1,0 +1,86 @@
+#! /usr/bin/env bash
+
+usage() {
+    cat <<USAGE
+Usage:
+    [RESET=1] [ROOT_TF=1] prep-proj-tf [<template-name>] [<gcp-project>]
+
+Description:
+    Crates gcp-project/_tf directory based on teamplate-name
+    When template-name is blank, only links to template-root.
+    When gcp-project isn't provided, the current directory will
+       be used if validated as a gcp-project.
+
+    ROOT_TF=1 indicates setting up the root's _tf directory, and not any
+    specific project.
+
+List of templates:
+USAGE
+
+
+
+
+    list-templates-for-usage
+}
+
+set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/../prep-repo.sh.inc"
+RUN_DIR="$PWD"
+NAME="$(basename "$RUN_DIR")"
+[[ "$NAME" == '_tf' ]] && RUN_DIR="$( dirname "$RUN_DIR" )"
+
+if [[ "$1" == "--help" ]]; then
+    usage
+    exit 2
+fi
+
+# Make sure we're running on a gcp-project/project level
+TST_RUN_DIR="$RUN_DIR"
+[[ "$ROOT_TF" != 1 ]] || TST_RUN_DIR="${GIT_ROOT}"
+[[ -z "$2" ]] || TST_RUN_DIR="${GIT_ROOT}/$2"
+PROJ_NAME="$(basename "${TST_RUN_DIR}")"
+if [[ "$TST_RUN_DIR" == "$GIT_ROOT" ]]; then
+    if [[ "$ROOT_TF" == 1 ]]; then
+        printf "Setting up git root _tf\n"
+    else
+        printf '%s\n' \
+            'Preparing git root failed.' \
+            'Are you in the correct location?' \
+            'Did you forget to pass ROOT_TF=1?'
+        exit 1
+    fi
+else
+    if [[ "$TST_RUN_DIR" != "${GIT_ROOT}/${PROJ_NAME}" ]]; then
+        printf "%s is not a valid project path\n" "$TST_RUN_DIR"
+        exit 1
+    fi
+    RUN_DIR="${GIT_ROOT}/${PROJ_NAME}"
+
+    TMP=$("$SCRIPT_DIR/../prep-repo" "$PROJ_NAME")
+    echo "$TMP"
+    echo "$TMP" | grep -q "Skipped" && exit 1
+fi
+
+echo "Preparing ${PROJ_NAME}"
+mkdir -p "${RUN_DIR}/_tf/_logs"
+RUN_DIR="${RUN_DIR}/_tf"
+
+remove_links_from_run_dir_on_RESET
+
+[[ "$ROOT_TF" == "1" ]] \
+|| safe_link "direnv/envrc.project-tf" "$RUN_DIR/.envrc"
+
+TMPL_NAME="${1}"
+SAFE_ROOT="$SZ_COMMON_PATH/tf/templates" link_templates 
+SAFE_ROOT="$SZ_COMMON_PATH/../tf/templates" link_templates
+
+if [[ -n "${TMPL_NAME}" && $LINKED_TMPL = 0 ]]; then
+    printf "Failed to initialize %s template, %s\n" \
+        "${TMPL_NAME}" \
+        "as the path does not exist"
+fi
+
+[[ -r "$RUN_DIR/README.md" ]] || touch "$RUN_DIR/README.md"
+[[ -r "$RUN_DIR/DEPLOYMENT-STEPS.md" ]] || touch "$RUN_DIR/DEPLOYMENT-STEPS.md"

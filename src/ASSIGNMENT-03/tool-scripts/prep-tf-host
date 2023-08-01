@@ -1,0 +1,86 @@
+#! /usr/bin/env bash
+
+usage() {
+    cat <<USAGE
+Usage:
+    [RESET=1] prep-tf-host <template-name> <gcp-project/tf-name>
+
+Description:
+    Crates gcp-project/tf-name directory based on teamplate-name
+    When template-name is blank, only links to template-root.
+    When gcp-project/tf-name will grab current directory name and if
+       it is a valid location, it will use the location to feed the
+       script's logic.
+
+List of templates:
+USAGE
+
+
+
+
+
+
+    list-templates-for-usage
+}
+
+set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/../prep-repo.sh.inc"
+RUN_DIR="$PWD"
+NAME="$(basename "$RUN_DIR")"
+[[ "$NAME" == '_tf' ]] && RUN_DIR="$( dirname "$RUN_DIR" )"
+
+if [[ "$1" == "--help" ]]; then
+    usage
+    exit 2
+fi
+
+# Make sure we're running on a gcp-project/project level
+TST_RUN_DIR="$RUN_DIR"
+
+[[ -z "$2" ]] || TST_RUN_DIR="${GIT_ROOT}/$2"
+PATH_ARG="$(basename "$(dirname "${TST_RUN_DIR}")")/$(basename "${TST_RUN_DIR}")"
+if [[ "$TST_RUN_DIR" != "${GIT_ROOT}/${PATH_ARG}" ]]; then
+    printf "%s is not a valid path\n" "$TST_RUN_DIR"
+    exit 1
+fi
+PROJ_NAME="$(basename "$(dirname "${PATH_ARG}")")"
+TF_NAME="$(basename "${PATH_ARG}")"
+
+
+
+if [[ "$PROJ_NAME/$TF_NAME" != "${PATH_ARG}" ]]; then
+    printf "ERROR %s does not match argument %s, %s\n" \
+        "$PROJ_NAME/$TF_NAME" "${PATH_ARG}" \
+        "this does not seem to be a valid project path."
+    exit 1
+fi
+RUN_DIR="${GIT_ROOT}/${PATH_ARG}"
+
+TMP=$("$SCRIPT_DIR/../prep-repo" "$PROJ_NAME")
+echo "$TMP"
+echo "$TMP" | grep -q "Skipped" && exit 1
+
+
+echo "Preparing ${PATH_ARG}"
+mkdir -p "${RUN_DIR}/_tf/_logs"
+
+
+remove_links_from_run_dir_on_RESET
+
+
+safe_link "direnv/envrc.project-tf" "$RUN_DIR/.envrc"
+
+TMPL_NAME="${1}"
+RUN_DIR="$RUN_DIR/_tf" SAFE_ROOT="$SZ_COMMON_PATH/tf/templates" link_templates 
+RUN_DIR="$RUN_DIR/_tf" SAFE_ROOT="$SZ_COMMON_PATH/../tf/templates" link_templates
+
+if [[ -n "${TMPL_NAME}" && $LINKED_TMPL = 0 ]]; then
+    printf "Failed to initialize %s template, %s\n" \
+        "${TMPL_NAME}" \
+        "as the path does not exist"
+fi
+
+[[ -r "$RUN_DIR/README.md" ]] || touch "$RUN_DIR/README.md"
+[[ -r "$RUN_DIR/DEPLOYMENT-STEPS.md" ]] || touch "$RUN_DIR/DEPLOYMENT-STEPS.md"

@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+eval "$(. _tf_aux_functions)"
+
+_tfSetLogTS
+. tf-plan "${@}"
+
+eval "$( _tf_exit_code )"

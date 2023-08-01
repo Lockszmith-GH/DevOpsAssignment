@@ -1,0 +1,32 @@
+#! /usr/bin/env bash
+# shellcheck disable=SC1091
+eval "$(. _tf_aux_functions)"
+
+function _tf() {
+    [[ -z "$TF_LOG_TS" ]] && _tfSetLogTS
+    local NAME=$1
+    [[ "${*}" =~ "-destroy" ]] && NAME="$1-destroy"
+
+    echo "===_logs/0_$NAME.log===" > _logs/0_0_lastrun.log
+    echo "===_logs/${TF_LOG_TS}_$NAME.log===" \
+        | tee --append _logs/0_0_lastrun.log \
+        > "_logs/0_$NAME.log"
+    [[ -z "$SZ_DEBUG" ]] || echo "Executing: terraform ${*}"
+    {
+    { \
+        terraform "${@}" 2>&1 || _tf_save_exitCode $?
+    } | tee "_logs/${TF_LOG_TS}_$NAME.log" \
+    | awk 'BEGIN {p=1}; /<<\W*EOT/ {print; p=0}; /^\W*EOT/ {p=1}; p; fflush();' \
+    | tee --append _logs/0_0_lastrun.log \
+    >> "_logs/0_$NAME.log"
+
+    echo "===FULLSTOP===" >> _logs/0_0_lastrun.log
+    } &
+
+    less-tf -
+}
+
+_tf "${@}"
+unset _tf
+
+eval "$( _tf_exit_code )"

@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+# shellcheck disable=SC1091
+eval "$(. _tf_aux_functions)"
+
+. tf apply "${@}" && _tfSetLogTS
+eval "$( _tf_exit_code )"
+. tf-extract \
+    | tee "_logs/${TF_LOG_TS}_state_ids.json" \
+    > _logs/0_9_last_state_ids.json \
+    && echo "_logs/${TF_LOG_TS}_state_ids.json written" >&2
+
+eval "$( _tf_exit_code )"

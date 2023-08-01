@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+function _get-tf-env() {
+    local PATTERN="${1-}"
+    compgen -v | grep "^TF_${PATTERN}" \
+        | while read a; do
+            set | grep "^$a=" | grep --color=auto '\b='
+        done
+}
+
+_get-tf-env "${@}"
+unset _get-tf-env
