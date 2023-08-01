@@ -60,6 +60,19 @@ module "deployed_host" {
   local_subnet_cidr  = each.value.subnet_cidr
 }
 
+module "deployed_network" {
+  source = "./modules/deployed_net"
+
+  for_each = local.locations
+
+  resource_group_name = local.resource_group_name
+  location            = each.key
+  shortname           = each.value.shortname
+  network_interfaces = [for h in module.deployed_host :
+    h.resources.nic.id if h.resources.host.location == each.key
+  ]
+}
+
 # output "debug" {
 #   value = [ for o in module.deployed_host : o.resources.host.name ]
 # }
