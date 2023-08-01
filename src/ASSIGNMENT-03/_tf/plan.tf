@@ -73,6 +73,21 @@ module "deployed_network" {
   ]
 }
 
+resource "azurerm_traffic_manager_profile" "traffic_manager" {
+  name                   = "traffic-mgr"
+  resource_group_name    = local.resource_group_name
+  traffic_routing_method = "Geographic"
+  dns_config {
+    relative_name = "traffic-mgr"
+    ttl           = 60
+  }
+  monitor_config {
+    path     = "/"
+    port     = 443
+    protocol = "HTTP"
+  }
+}
+
 # output "debug" {
 #   value = [ for o in module.deployed_host : o.resources.host.name ]
 # }
